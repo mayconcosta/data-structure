@@ -3,7 +3,9 @@ package com.datastructure.collections.impl;
 import com.datastructure.collections.BinaryTree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.function.Consumer;
 
 public class BinaryTreeImpl<T extends Comparable<T>> implements BinaryTree<T> {
@@ -174,6 +176,31 @@ public class BinaryTreeImpl<T extends Comparable<T>> implements BinaryTree<T> {
             throw new IllegalArgumentException();
         }
 
+        Queue<Node<T>> queue = new LinkedList<>();
+        queue.add(root);
+
+        return breadthFirstSearchRecursive(queue, list, element);
+    }
+
+    private boolean breadthFirstSearchRecursive(Queue<Node<T>> queue, List<T> list, T element) {
+
+        while (!queue.isEmpty()) {
+            Node<T> currentNode = queue.remove();
+            list.add(currentNode.value);
+
+            if (element.equals(currentNode.value)) {
+                return true;
+            }
+
+            if (currentNode.left != null) {
+                queue.add(currentNode.left);
+            }
+            if (currentNode.right != null) {
+                queue.add(currentNode.right);
+            }
+
+            return breadthFirstSearchRecursive(queue, list, element);
+        }
         return false;
     }
 

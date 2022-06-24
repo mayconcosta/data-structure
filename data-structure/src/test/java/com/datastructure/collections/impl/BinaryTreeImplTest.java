@@ -35,6 +35,7 @@ public class BinaryTreeImplTest {
 
     @Test
     public void testContains() {
+        int oi;
         assertTrue(tree.contains(6));
         assertTrue(tree.contains(3));
         assertTrue(tree.contains(7));
@@ -64,6 +65,25 @@ public class BinaryTreeImplTest {
         search = tree.depthFirstSearch(visitedNodes, 50);
         assertFalse(search);
         assertEquals(List.of(6, 8, 9), visitedNodes);
+    }
+
+    @Test
+    public void testBreadthFirstSearch() {
+        List<Integer> visitedNodes = new ArrayList<>();
+
+        boolean search = tree.breadthFirstSearch(visitedNodes, 8);
+        assertTrue(search);
+        assertEquals(List.of(6, 4, 8), visitedNodes);
+
+        visitedNodes.clear();
+        search = tree.breadthFirstSearch(visitedNodes, 5);
+        assertTrue(search);
+        assertEquals(List.of(6, 4, 8, 3, 5), visitedNodes);
+
+        visitedNodes.clear();
+        search = tree.breadthFirstSearch(visitedNodes, 50);
+        assertFalse(search);
+        assertEquals(List.of(6, 4, 8, 3, 5, 7, 9), visitedNodes);
     }
 
     @Test
